@@ -1,0 +1,14 @@
+language: python
+sudo: false
+python:
+  - "3.5"
+  - "3.5-dev"
+  - "nightly"
+install:
+    - pip install -e .
+    - pip install -e ".[testing]"
+script:
+    - if [[ ! "$(python --version 2>&1)" =~ Python\ (3\.6.*) ]]; then pep8 eventemitter/; fi
+    - pep257 --add-select=D203 --add-ignore=D211 eventemitter/
+    - pyflakes eventemitter/
+    - py.test --cov-report term-missing --cov-config .coveragerc --cov eventemitter --pyargs eventemitter

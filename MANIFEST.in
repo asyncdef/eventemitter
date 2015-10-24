@@ -1,0 +1,6 @@
+include README.rst
+include LICENSE
+recursive-include eventemitter *
+recursive-exclude eventemitter *.pyc
+recursive-exclude eventemitter *.pyd
+recursive-exclude eventemitter *.pyo

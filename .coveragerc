@@ -1,0 +1,10 @@
+[run]
+branch = True
+omit =
+    *test_*.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    __future__
+    raise NotImplementedError()
