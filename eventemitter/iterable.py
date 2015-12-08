@@ -2,9 +2,10 @@
 
 import asyncio
 import collections
+from collections.abc import AsyncIterator, AsyncIterable
 
 
-class EventIterator:
+class EventIterator(AsyncIterator):
 
     """An iterator who values are the payloads from emitted events."""
 
@@ -35,7 +36,7 @@ class EventIterator:
         return self._data.popleft()
 
 
-class EventIterable:
+class EventIterable(AsyncIterable):
 
     """An iterable object the iterator for which loops on each fired event."""
 
