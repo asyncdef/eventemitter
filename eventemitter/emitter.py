@@ -121,10 +121,10 @@ class EventEmitter:
         return False
 
     def remove_all_listeners(self, event=None):
-        """Removes all listeners, or those of the specified *event*. 
-        
-        It's not a good idea to remove listeners that were added elsewhere in 
-        the code, especially when it's on an emitter that you didn't create 
+        """Removes all listeners, or those of the specified *event*.
+
+        It's not a good idea to remove listeners that were added elsewhere in
+        the code, especially when it's on an emitter that you didn't create
         (e.g. sockets or file streams).
         """
         if event is None:
