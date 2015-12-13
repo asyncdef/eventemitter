@@ -118,6 +118,62 @@ def test_remove_listener_once():
     assert e.remove_listener('test', sentinel) is False
 
 
+def test_remove_all_listeners_for_event():
+    """Check that remove_all_listeners removes all listeners for an event."""
+    e = emitter.EventEmitter()
+
+    def sync_listener():
+        return True
+
+    async def async_listener():
+        await asyncio.sleep(0.001)
+        return True
+
+    e.on('test', sync_listener)
+    e.on('test', async_listener)
+    e.once('test', sync_listener)
+
+    # Ensure that calling remove_all_listeners with an event name
+    # leaves listeners for *other* events unaffected
+    e.on('spam', sync_listener)
+    e.on('spam', async_listener)
+    e.once('spam', sync_listener)
+
+    assert e.count('test') == 3
+    assert e.count('spam') == 3
+    e.remove_all_listeners('test')
+    assert e.count('test') == 0
+    assert e.count('spam') == 3
+
+
+def test_remove_all_listeners():
+    """Check that remove_all_listeners removes all listeners."""
+    e = emitter.EventEmitter()
+
+    def sync_listener():
+        return True
+
+    async def async_listener():
+        await asyncio.sleep(0.001)
+        return True
+
+    e.on('test', sync_listener)
+    e.on('test', async_listener)
+    e.once('test', sync_listener)
+
+    # Ensure that calling remove_all_listeners with no args
+    # removes listeners for *all* events
+    e.on('spam', sync_listener)
+    e.on('spam', async_listener)
+    e.once('spam', sync_listener)
+
+    assert e.count('test') == 3
+    assert e.count('spam') == 3
+    e.remove_all_listeners()
+    assert e.count('test') == 0
+    assert e.count('spam') == 0
+
+
 def test_count_shows_all_listeners():
     """Check that count returns the number of all listeners for an event."""
     e = emitter.EventEmitter()
