@@ -10,7 +10,7 @@ with open('README.rst', 'r') as readmefile:
 
 setup(
     name='eventemitter',
-    version='0.1.1',
+    version='0.2.0',
     url='https://github.com/asyncdef/eventemitter',
     description='Tools for working with async events.',
     author="Kevin Conway",
